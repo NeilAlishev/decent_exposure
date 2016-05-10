@@ -17,17 +17,15 @@ module DecentExposure
       private
 
       def generate_controller
-        copy_file(
-          'controller.rb',
-          'lib/templates/rails/scaffold_controller/controller.rb'
-        )
+        copy_template('rails/scaffold_controller', 'controller.rb')
       end
 
       def generate_view(view)
-        copy_file(
-          "#{view}.html.#{engine}",
-          "lib/templates/#{engine}/scaffold/#{view}.html.#{engine}"
-        )
+        copy_template("#{engine}/scaffold", "#{view}.html.#{engine}")
+      end
+
+      def copy_template(generator, file)
+        copy_file(file, "lib/templates/#{generator}/#{file}")
       end
 
       def engine

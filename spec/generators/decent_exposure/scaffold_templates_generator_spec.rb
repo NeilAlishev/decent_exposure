@@ -16,4 +16,21 @@ RSpec.describe DecentExposure::Generators::ScaffoldTemplatesGenerator, type: :ge
       generator.generate
     end
   end
+
+  context 'with haml' do
+    before do
+      allow(generator).to receive(:options).and_return(template_engine: :haml)
+    end
+
+    it 'generates controller and haml views' do
+      allow(generator).to receive(:copy_file).with('controller.rb', 'lib/templates/rails/scaffold_controller/controller.rb')
+      allow(generator).to receive(:copy_file).with('_form.html.haml', 'lib/templates/haml/scaffold/_form.html.haml')
+      allow(generator).to receive(:copy_file).with('edit.html.haml', 'lib/templates/haml/scaffold/edit.html.haml')
+      allow(generator).to receive(:copy_file).with('index.html.haml', 'lib/templates/haml/scaffold/index.html.haml')
+      allow(generator).to receive(:copy_file).with('new.html.haml', 'lib/templates/haml/scaffold/new.html.haml')
+      allow(generator).to receive(:copy_file).with('show.html.haml', 'lib/templates/haml/scaffold/show.html.haml')
+
+      generator.generate
+    end
+  end
 end
